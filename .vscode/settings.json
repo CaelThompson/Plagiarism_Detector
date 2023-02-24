@@ -1,3 +1,8 @@
 {
-    "git.enabled": true
+    "git.enabled": true,
+    "files.associations": {
+        "xstring": "cpp",
+        "ostream": "cpp",
+        "xiosbase": "cpp"
+    }
 }
