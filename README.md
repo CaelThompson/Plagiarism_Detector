@@ -1,4 +1,4 @@
 # Plagiarism_Detector
 A plagiarism detector made in C++ using hashes. 
 Objective:
--To take in a text file with strings, compare strings to target strings using their hashes, and discover what strings are the same.
+-This is a plagiarism detector made in C++ using functions to generate two unique hashes for strings. The hashes will be compared to a set of target strings hashes and if they are the same, then plagiarism is in effect.
