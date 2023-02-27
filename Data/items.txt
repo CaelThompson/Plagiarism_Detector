@@ -1,2 +1,3 @@
-this project is hard
-the dog is happy
+This project is hard
+The dog is happy
+The grapes are green

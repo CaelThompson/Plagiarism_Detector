@@ -7,13 +7,15 @@
 #include <fstream>
 
 using namespace std;
+//This is a plagiarism detector made in C++ using functions to generate two unique hashes for strings. The hashes will be compared to a 
+//set of target strings hashes and if they are the same, then plagiarism is in effect.
 
 //Hash structure
 struct Hash{
     //Constant variables used to prevent hash collision
     const long long a0 = 31, b0 = 1e9+7;
     const long long a1 = 37, b1 = 1e9+9;
-    unsigned long long hash0 = 0, hash1 = 0;
+    long long hash0 = 0, hash1 = 0;
     Hash(const string& comp1){
         calcHash0(comp1);
         calcHash1(comp1);
@@ -38,13 +40,12 @@ struct Hash{
     bool operator==(const Hash& diff){
         return (hash0 == diff.hash0 && hash1 == diff.hash1);
     }
-
 }; 
 struct Hash2{
     //Constant variables used to prevent hash collision
     const long long a0 = 31, b0 = 1e9+7;
     const long long a1 = 37, b1 = 1e9+9;
-    unsigned long long hash2 = 0, hash3 = 0;
+    long long hash2 = 0, hash3 = 0;
     Hash2(const string& comp2){
         calcHash2(comp2);
         calcHash3(comp2);
@@ -64,21 +65,19 @@ struct Hash2{
             power = (power*a1)%b1;
         }
     }
-    //compare two different objects using comparison overloading
     bool operator==(Hash2& diff2){
         return (hash2 == diff2.hash2 && hash3 == diff2.hash3);
     }
 };
 struct targetHash{
-    //Constant variables used to prevent hash collision
     const long long a0 = 31, b0 = 1e9+7;
     const long long a1 = 37, b1 = 1e9+9;
-    unsigned long long hash4 = 0, hash5 = 0;
+    long long hash4 = 0, hash5 = 0;
     targetHash(const string& targetItem){
         calcHash4(targetItem);
         calcHash5(targetItem);
     }
-    //terget strings to hash
+    //target strings to hash
     void calcHash4(const string& targetItem){
         long power = 1;
         for(char character:targetItem){
@@ -93,11 +92,9 @@ struct targetHash{
             power = (power*a1)%b1;
         }
     }
-    //compare two different objects using comparison overloading
     bool operator==(targetHash& diff3){
         return (hash4 == diff3.hash4 && hash5 == diff3.hash5);
-    }
-    
+    }   
 };
 //The main plagiarism detector structure
 template<typename T>
@@ -107,15 +104,15 @@ struct plagDetect{
     }
     //The plagiarism detector
     void plagDetector(T hash0,T hash1,T hash2,T hash3,T hash4,T hash5){
-            if((hash0 && hash1) == (hash4 && hash5)){
-                cout << "Plagiarism detected! Identical hashes! Discovered in the first file." << endl;
-            }
-            else if((hash2 && hash3) == (hash4 && hash5)){
-                cout << "Plagiarism detected! Identical hashes! Discovered in the second file." << endl;
-            }
-            else if((hash0 && hash1) != (hash4 && hash5) && (hash2 && hash3) != (hash4 && hash5)){
-                cout << "No Plagiarism detected!" << endl;
-            }  
+        if((hash0 == hash4) && (hash1 == hash5)){
+            cout << "Plagiarism detected! Identical hashes! Discovered in the first file." << endl;
+        }
+        else if((hash2 == hash4) && (hash3 == hash5)){
+            cout << "Plagiarism detected! Identical hashes! Discovered in the second file." << endl;
+        }
+        else{
+            cout << "No Plagiarism detected!" << endl;
+        }  
     }
 };
 int main(){
@@ -137,16 +134,16 @@ int main(){
             Hash hasher(comp1);
             Hash2 hasher2(comp2);
             targetHash hasher3(targetItem);
-            cout << "file 1 open" << endl;
+            //cout << "file 1 open" << endl;
             cout << "The hash values of " << comp1 << " are: ";
             cout << "(" << hasher.hash0 << ", " << hasher.hash1 << ")" << endl;
-            cout << "file 2 open" << endl;
+            //cout << "file 2 open" << endl;
             cout << "The hash values of " << comp2 << " are: ";
             cout << "(" << hasher2.hash2 << ", " << hasher2.hash3 << ")" << endl;
-            cout << "target file open" << endl;
+            //cout << "target file open" << endl;
             cout << "The hash values of " << targetItem << " are: ";
             cout << "(" << hasher3.hash4 << ", " << hasher3.hash5 << ")" << endl;
-            plagDetect<unsigned long long> plag(hasher.hash0, hasher.hash1, hasher2.hash2, hasher2.hash3, hasher3.hash4, hasher3.hash5);
+            plagDetect<long long> plag(hasher.hash0, hasher.hash1, hasher2.hash2, hasher2.hash3, hasher3.hash4, hasher3.hash5);
         }
         compFile1.close();
         compFile2.close();
